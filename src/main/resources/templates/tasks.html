@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="_template :: head"></head>
+<body>
+	<h1>Tarefas</h1>
+
+	<nav th:include="_template :: menu('task')"></nav>
+
+	<a href="/task/new" class="btn-sm btn-primary">
+		<span class="material-icons">add</span>
+	</a>
+	
+	<div class="content">
+		<div class="card-task">
+			<div class="task" th:each="task : ${tasks}">
+			
+				<img class="avatar" alt="" src="https://avatars.githubusercontent.com/rafa-leao">
+				<h2 th:text="${task.title}"></h2>
+				<div class="point">
+					<span class="material-icons">star</span> <span th:text="${task.point}"></span>
+				</div>
+		
+				<div class="status">
+					<svg>
+						<circle cx="70" cy="70" r="70"></circle>
+						<circle cx="70" cy="70" r="70"
+							th:style="${'stroke-dashoffset:' + (440 - (440 * task.status)/100)}"></circle>
+					</svg>
+					<div class="number">
+						<h2 id="status" th:text="${task.status + '%'}"></h2>
+					</div>
+				</div>
+		
+				<button th:href="${'/task'}" class="btn-hand">
+					<span class="material-icons">pan_tool</span>
+				</button>
+				<a th:href="${'/task/' + task.id}" class="btn btn-sm yellow"> 
+					<span class="material-icons">edit</span>
+				</a>
+				<a th:href="${'/task/delete/' + task.id}" class="btn btn-sm red"> 
+					<span class="material-icons">delete</span>
+				</a>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
